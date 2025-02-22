@@ -1,0 +1,55 @@
+const possibleActionButtonTypes_controller = [ /* Diese Variable wird vom Benutzer definiert. */
+      "delete",
+      "edit",
+      "add",
+      "create",
+];
+
+export class ActionButton {
+      constructor(actionType, possibleActionTypes = possibleActionButtonTypes_controller) {
+      this.actionType = actionType;
+      // this.reqiurements wird primär für this._debug() verwendet. Falls in Erwägung gezogen wird, Werte aus this.requirements in anderen Methoden anzuwenden, berücksichten dass this._debug nicht mehr wie gewünscht funktioniert.
+      this.requirements = {
+            actionType: this.actionType,
+            possibleActionTypes: possibleActionTypes,
+      },
+
+      this._menuButtonAction(actionType);
+      }
+
+      _menuButtonAction(actionType) {
+            this._debug();
+            return;
+            if (!actionType) {
+                  return;
+            } else { 
+                  console.clear();
+                  console.log("attr action-type ist vergeben.") }
+      }
+      _debug() {
+            const requirements = Object.entries(this.requirements);
+            let count = 0;
+            for(const [key, val] of requirements) {
+                  count ++
+                  console.log(`
+                    
+      requirement ${count} of ${requirements.length} =>  ${key} = ${val}
+                  
+                  `);
+            }
+            
+            console.log(this.requirements.actionType);
+
+            console.log(`
+              
+                            ${this.requirements}
+            
+            `);
+            
+            console.log(`
+                  
+                  this.actiontype = ${this.actionType}
+            
+            `);
+      }
+}
