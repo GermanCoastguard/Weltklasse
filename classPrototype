@@ -1,89 +1,67 @@
-// functionX_controller
-// _controller: Impliziert, dass diese Variable das Verhalten der Klasse steuert oder verwaltet.
-// functionX_dependency
-// _dependency: Deutet darauf hin, dass die Klasse auf diese Variable angewiesen ist, aber nicht unbedingt von ihr gesteuert wird.
-// functionX_recursive
-// _recursive: Deutet darauf hin, dass die Klasse auf diese Variable angewiesen ist, aber nicht unbedingt von ihr gesteuert wird.
 
+/* This Class was meant to be a ActionButton */
+export class YourClass{
+      constructor(actionType) {
+            this.actionType= actionType;
+            // this.reqiurements wird primär für this._debug() verwendet. Falls in Erwägung gezogen wird, Werte aus this.requirements in anderen Methoden anzuwenden, berücksichten dass this._debug nicht mehr wie gewünscht funktioniert.
+            this.requirements = {
+                  actionType: { value: this.actionType, intention: " required to determine, which function gets called" },
+                 },
 
-const possibleActionButtonTypes_controller = [ /* Diese Variable wird vom Benutzer definiert. */
-      "delete",
-      "edit",
-      "add",
-      "create",
-];
-
-export class ActionButton {
-      constructor(actionType, possibleActionTypes = possibleActionButtonTypes_controller) {
-      this.actionType = actionType;
-      this.possibleActionTypes = possibleActionTypes;
-      // this.reqiurements wird primär für this._debug() verwendet. Falls in Erwägung gezogen wird, Werte aus this.requirements in anderen Methoden anzuwenden, berücksichten dass this._debug nicht mehr wie gewünscht funktioniert.
-      this.requirements = {
-            actionType: this.actionType,
-            possibleActionTypes: this.possibleActionTypes,
-      },
-
-      this._menuButtonAction(actionType);
+                  this._init(actionType);
       }
 
 
 
-      _menuButtonAction(actionType) {
+      _init(actionType) {
             this._debug();
             return;
             if (!actionType) {
                   return;
-            } else { 
+            } else {
                   console.clear();
-                  console.log("attr action-type ist vergeben.") }
+                  console.log("attr action-type ist vergeben.")
+            }
       }
       _returnValue(actionType) {
             // Soll eine Funktion triggern , basierend auf dem actiontype
       }
-      _debug() {
+      _debug(obj = this.requirements) {
+            console.clear();
+            console.log(this);
+            console.log(`
+              Console was cleared => 
+                            Starting debugging
+            
+            `);
+            // __________________ Working as Intended Start __________________
             const handleRequirements = () => {
-                  // __________________ Working as Intended Start __________________
-
-                  if (!this.requirements) {
-                        console.clear();
+                  // Prüfe ob reqiurements vergeben wurden
+                  if (!obj) {
                         return console.log(`
-                    
+                  handleRequirements() wird gerade ausgeführt => 
 
                   Es sind keine [Requirements] definiert.
-                  (Falls keine Requirements definiert werden sollen )
+                  (Falls keine Requirements definiert werden sollen muss als Arg ein Leeres Object übergeben werden )
                  
                   
                   `);
                   }
-                  // __________________ Working as Intended End __________________
-                  const requirements = Object.entries(this.requirements);
+                  // Ausgehend davon, dass die Elemente in this.requirements Key,Value pairs sind.
+                  const requirements = Object.entries(obj);
                   let count = 0;
                   for (const [key, val] of requirements) {
                         count++
                         console.log(`
                     
-      requirement ${count} of ${requirements.length} =>  ${key} = ${val}
+      "requirement ${count} of ${requirements.length} =>  ${key} = ${val.value}"
+
+      ( ${val.intention })
                   
                   `);
                   }
-
             }
+            // __________________ Working as Intended End __________________
             handleRequirements();
-
-
-            
-            // console.log(this.requirements.actionType);
-
-            // console.log(`
-              
-            //                 ${this.requirements}
-            
-            // `);
-            
-            // console.log(`
-                  
-            //       this.actiontype = ${this.actionType}
-            
-            // `);
       }
 }
